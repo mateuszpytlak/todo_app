@@ -1,5 +1,8 @@
 @import "tailwindcss";
 
-body {
-  border: 3px solid red;
-}
+
+/*@theme {*/
+/*    --color-primary: #1e40af;*/
+/*    --font-sans: "Inter", sans-serif;*/
+/*    --max-width-container: 1440px;*/
+/*}*/
