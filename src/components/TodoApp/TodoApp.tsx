@@ -66,21 +66,35 @@ export const TodoApp = () => {
         });
     }
 
+    
     const handleToggleTodo = (id: number) => {
-        setTodos((prevTodos) => {
-            const updatedTodos = [...prevTodos];
-            const index = updatedTodos.findIndex((todo) => todo.id === id);
-            if (index !== -1) {
-                updatedTodos[index].completed = !updatedTodos[index].completed;
-            }
-            return updatedTodos;
-        });
+        setTodos(prev =>
+            prev.map(todo =>
+                todo.id === id
+                    ? { ...todo, completed: !todo.completed }
+                    : todo
+            )
+        );
+    }
+
+    const handleSelectAll = () => {
+        setTodos(prev =>
+            prev.map(todo => ({
+                ...todo,
+                completed: true
+            }))
+        );
     }
 
     return (
         <>
             <TodoForm setTodos={handleAddTodoItem}/>
-            <TodoList todoList={todos} removeItem={handleDeleteTodo} handleToggleTodo={handleToggleTodo} />
+            <TodoList
+                todoList={todos}
+                removeItem={handleDeleteTodo}
+                handleToggleTodo={handleToggleTodo}
+                handleSelectAll={handleSelectAll}
+            />
         </>
     )
 }

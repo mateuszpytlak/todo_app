@@ -10,11 +10,9 @@ type Props = {
 } & HTMLProps<HTMLLIElement>;
 
 export const TodoItem = ({listItem, deleteItem, toggleTodo}: Props) => {
-    const [completed, setCompleted] = useState(listItem.completed);
     const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
     const handleChange: ChangeEventHandler<HTMLInputElement> = () => {
         toggleTodo(listItem.id);
-        setCompleted(!completed);
     };
 
     const handleDeleteTodo = (e: MouseEvent) => {
@@ -61,7 +59,7 @@ export const TodoItem = ({listItem, deleteItem, toggleTodo}: Props) => {
             <div className="flex items-center">
                 <input
                     type="checkbox"
-                    checked={completed}
+                    checked={listItem.completed}
                     className="w-5 h-5 mr-3 rounded border-gray-300 text-blue-600 focus:ring-blue-500 cursor-pointer"
                     onChange={handleChange}
                 />
