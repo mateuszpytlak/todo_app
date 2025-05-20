@@ -1,4 +1,4 @@
-import {type ChangeEventHandler, type HTMLProps, useState} from "react";
+import {type ChangeEventHandler, type HTMLProps, useState, type MouseEvent} from "react";
 import {Button} from "../../ui";
 import type {TodoType} from "../../types/TodoType.ts";
 
@@ -10,13 +10,24 @@ type Props = {
 
 export const TodoItem = ({listItem, deleteItem, toggleTodo}: Props) => {
     const [completed, setCompleted] = useState(listItem.completed);
+    const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
     const handleChange: ChangeEventHandler<HTMLInputElement> = () => {
-        toggleTodo( listItem.id);
+        toggleTodo(listItem.id);
         setCompleted(!completed);
     };
 
-    const handleDeleteTodo = () => {
+    const handleDeleteTodo = (e: MouseEvent) => {
+        e.stopPropagation();
+        setShowDeleteConfirm(true);
+    }
+
+    const confirmDelete = () => {
         deleteItem(listItem.id);
+        setShowDeleteConfirm(false);
+    }
+
+    const cancelDelete = () => {
+        setShowDeleteConfirm(false);
     }
 
     const deleteIconSvg = (
@@ -53,13 +64,35 @@ export const TodoItem = ({listItem, deleteItem, toggleTodo}: Props) => {
                     </span>
                 </div>
             </div>
-            <div >
+            <div>
                 <Button
                     label={deleteIconSvg}
                     className="text-gray-400 hover:text-red-500 opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer"
-                    onClick={ handleDeleteTodo }
+                    onClick={handleDeleteTodo}
                 />
             </div>
+            {/*move poppup to sperate file*/}
+            {showDeleteConfirm && (
+                <div
+                    className="fixed inset-0 bg-opacity-25 backdrop-blur-sm flex items-center justify-center z-50">
+                    <div className="bg-white p-6 rounded-lg shadow-xl">
+                        <h3 className="text-lg font-medium mb-4">Confirm Deletion</h3>
+                        <p className="mb-4">Are you sure you want to delete this todo?</p>
+                        <div className="flex justify-end space-x-3">
+                            <Button
+                                label="Cancel"
+                                className="px-4 py-2 bg-gray-200 text-gray-800 rounded hover:bg-gray-300"
+                                onClick={cancelDelete}
+                            />
+                            <Button
+                                label="Delete"
+                                className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600"
+                                onClick={confirmDelete}
+                            />
+                        </div>
+                    </div>
+                </div>
+            )}
         </li>
     );
 }
