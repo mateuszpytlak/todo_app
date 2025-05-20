@@ -56,7 +56,14 @@ export const TodoApp = () => {
     }
 
     const handleDeleteTodo = (index: number) => {
-        setTodos((prevTodos) => prevTodos.filter((_, i) => i !== index));
+        setTodos((prevTodos) => {
+            const updatedTodos = [...prevTodos];
+            const todoIndex = updatedTodos.findIndex((todo) => todo.id === index);
+            if (todoIndex !== -1) {
+                updatedTodos.splice(todoIndex, 1);
+            }
+            return updatedTodos;
+        });
     }
 
     const handleToggleTodo = (id: number) => {
