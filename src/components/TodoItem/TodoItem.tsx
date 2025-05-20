@@ -46,22 +46,31 @@ export const TodoItem = ({listItem, deleteItem, toggleTodo}: Props) => {
         </svg>
     );
 
+    const formatDate = (date: Date) => {
+        return new Intl.DateTimeFormat('pl-PL', {
+            hour: '2-digit',
+            minute: '2-digit',
+            year: 'numeric',
+            month: 'short',
+            day: 'numeric',
+        }).format(new Date(date));
+    }
+
     return (
         <li className="flex items-center justify-between py-3 px-4 border-b last:border-0 group hover:bg-gray-50 transition-colors">
             <div className="flex items-center">
                 <input
                     type="checkbox"
                     checked={completed}
-                    className="w-5 h-5 mr-3 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                    className="w-5 h-5 mr-3 rounded border-gray-300 text-blue-600 focus:ring-blue-500 cursor-pointer"
                     onChange={handleChange}
                 />
                 <div>
                     <p>
                         {listItem.title}
                     </p>
-                    {/*//todo wprowadzic date createdAt*/}
                     <span className="text-xs text-gray-500">
-                        date
+                        {formatDate(listItem.createdAt)}
                     </span>
                 </div>
             </div>
