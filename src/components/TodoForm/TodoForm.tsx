@@ -25,7 +25,7 @@ export const TodoForm = ( { setTodos }: Props ) => {
                     placeholder="Type a task todo"
                     value={title}
                     onChange={ (e) => setTitle(e.target.value) }
-                    // todo prevent refresh on every key stroke (useRef)
+                    // todo prevent refresh on every key stroke (useRef?)
                 />
                 <Button
                     type="submit"
