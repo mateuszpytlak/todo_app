@@ -69,7 +69,7 @@ export const TodoApp = () => {
         );
     }
 
-    const toggleAllTodos = () => {
+    const handleToggleAllTodos = () => {
         const areAllCompleted = todoList.every(todo => todo.completed);
         setTodoList(prev =>
             prev.map(todo => ({
@@ -79,7 +79,7 @@ export const TodoApp = () => {
         );
     }
 
-    const clearCompletedTodos = () => {
+    const handleClearCompletedTodos = () => {
         setTodoList( (prevTodos) => prevTodos.filter(todo => !todo.completed));
     }
 
@@ -90,8 +90,8 @@ export const TodoApp = () => {
                 todoList={todoList}
                 removeItem={handleDeleteTodo}
                 handleToggleTodo={handleToggleTodo}
-                handleSelectAll={toggleAllTodos}
-                clearCompletedTodos={clearCompletedTodos}
+                handleSelectAll={handleToggleAllTodos}
+                clearCompletedTodos={handleClearCompletedTodos}
             />
         </>
     )
