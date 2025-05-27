@@ -43,24 +43,24 @@ export const TodoApp = () => {
         },
 
     ];
-    const [todos, setTodos] = useState<TodoType[]>(todosMock);
+    const [todoList, setTodoList] = useState<TodoType[]>(todosMock);
 
     const handleAddTodoItem = (newTodo: string) => {
         const newTodoItem: TodoType = {
-            id: todos.length + 1,
+            id: todoList.length + 1,
             title: newTodo,
             completed: false,
             createdAt: new Date(),
         };
-        setTodos((prevTodos) => [...prevTodos, newTodoItem]);
+        setTodoList((prevTodos) => [...prevTodos, newTodoItem]);
     }
 
     const handleDeleteTodo = (index: number) => {
-        setTodos(prevTodos => prevTodos.filter(todo => todo.id !== index));
+        setTodoList(prevTodos => prevTodos.filter(todo => todo.id !== index));
     }
 
     const handleToggleTodo = (id: number) => {
-        setTodos(prev =>
+        setTodoList(prev =>
             prev.map(todo =>
                 todo.id === id
                     ? {...todo, completed: !todo.completed}
@@ -70,26 +70,24 @@ export const TodoApp = () => {
     }
 
     const toggleAllTodos = () => {
-        const allCompleted = todos.every(todo => todo.completed);
-        setTodos(prev =>
+        const areAllCompleted = todoList.every(todo => todo.completed);
+        setTodoList(prev =>
             prev.map(todo => ({
                 ...todo,
-                completed: !allCompleted
+                completed: !areAllCompleted
             }))
         );
     }
 
     const clearCompletedTodos = () => {
-        setTodos((prevTodos) => {
-            return prevTodos.filter(todo => !todo.completed);
-        });
+        setTodoList( (prevTodos) => prevTodos.filter(todo => !todo.completed));
     }
 
     return (
         <>
             <TodoForm setTodos={handleAddTodoItem}/>
             <TodoList
-                todoList={todos}
+                todoList={todoList}
                 removeItem={handleDeleteTodo}
                 handleToggleTodo={handleToggleTodo}
                 handleSelectAll={toggleAllTodos}
