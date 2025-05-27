@@ -56,22 +56,14 @@ export const TodoApp = () => {
     }
 
     const handleDeleteTodo = (index: number) => {
-        setTodos((prevTodos) => {
-            const updatedTodos = [...prevTodos];
-            const todoIndex = updatedTodos.findIndex((todo) => todo.id === index);
-            if (todoIndex !== -1) {
-                updatedTodos.splice(todoIndex, 1);
-            }
-            return updatedTodos;
-        });
+        setTodos(prevTodos => prevTodos.filter(todo => todo.id !== index));
     }
 
-    
     const handleToggleTodo = (id: number) => {
         setTodos(prev =>
             prev.map(todo =>
                 todo.id === id
-                    ? { ...todo, completed: !todo.completed }
+                    ? {...todo, completed: !todo.completed}
                     : todo
             )
         );
@@ -87,6 +79,12 @@ export const TodoApp = () => {
         );
     }
 
+    const clearCompletedTodos = () => {
+        setTodos((prevTodos) => {
+            return prevTodos.filter(todo => !todo.completed);
+        });
+    }
+
     return (
         <>
             <TodoForm setTodos={handleAddTodoItem}/>
@@ -95,6 +93,7 @@ export const TodoApp = () => {
                 removeItem={handleDeleteTodo}
                 handleToggleTodo={handleToggleTodo}
                 handleSelectAll={toggleAllTodos}
+                clearCompletedTodos={clearCompletedTodos}
             />
         </>
     )
