@@ -29,7 +29,7 @@ export const TodoList = ({todoList, removeItem, handleToggleTodo, handleSelectAl
         [FilterStatus.ALL]: (todos: TodoType[]) => todos,
     };
 
-    const handleFilterActive = (filterType: FilterStatus) => {
+    const handleSelectedFilterType = (filterType: FilterStatus) => {
         setCurrentFilter(filterType);
         setFilteredTodos(filterMap[filterType](todoList));
     };
@@ -76,17 +76,17 @@ export const TodoList = ({todoList, removeItem, handleToggleTodo, handleSelectAl
                                 <Button
                                     label="All"
                                     className={`px-2 py-1 rounded ${currentFilter === FilterStatus.ALL ? 'bg-blue-500 text-white' : 'hover:bg-gray-200'}`}
-                                    onClick={() => handleFilterActive(FilterStatus.ALL)}
+                                    onClick={() => handleSelectedFilterType(FilterStatus.ALL)}
                                 />
                                 <Button
                                     label="Active"
                                     className={`px-2 py-1 rounded ${currentFilter === FilterStatus.ACTIVE ? 'bg-blue-500 text-white' : 'hover:bg-gray-200'}`}
-                                    onClick={() => handleFilterActive(FilterStatus.ACTIVE)}
+                                    onClick={() => handleSelectedFilterType(FilterStatus.ACTIVE)}
                                 />
                                 <Button
                                     label="Completed"
                                     className={`px-2 py-1 rounded ${currentFilter === FilterStatus.COMPLETED ? 'bg-blue-500 text-white' : 'hover:bg-gray-200'}`}
-                                    onClick={() => handleFilterActive(FilterStatus.COMPLETED)}
+                                    onClick={() => handleSelectedFilterType(FilterStatus.COMPLETED)}
                                 />
                                 <Button
                                     label="Clear Completed"
