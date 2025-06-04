@@ -1,49 +1,52 @@
 import {TodoForm} from "../TodoForm/TodoForm.tsx";
 import {TodoList} from "../TodoList/TodoList.tsx";
-import {useState} from "react";
 import type {TodoType} from "../../types/TodoType.ts";
+import {useLocalStorage} from "../../hooks/useLocalStorage.ts";
 
 export const TodoApp = () => {
-    const todosMock = [
-        {
-            id: 1,
-            title: 'clean the house',
-            completed: false,
-            createdAt: new Date(),
-        },
-        {
-            id: 2,
-            title: 'got to the store',
-            completed: false,
-            createdAt: new Date(),
-        },
-        {
-            id: 3,
-            title: 'walk the dog',
-            completed: false,
-            createdAt: new Date(),
-        },
-        {
-            id: 4,
-            title: 'go to the gym',
-            completed: false,
-            createdAt: new Date(),
-        },
-        {
-            id: 5,
-            title: 'read a book',
-            completed: false,
-            createdAt: new Date(),
-        },
-        {
-            id: 6,
-            title: 'write some code',
-            completed: false,
-            createdAt: new Date(),
-        },
+    // const todosMock = [
+    //     {
+    //         id: 1,
+    //         title: 'clean the house',
+    //         completed: false,
+    //         createdAt: new Date(),
+    //     },
+    //     {
+    //         id: 2,
+    //         title: 'got to the store',
+    //         completed: false,
+    //         createdAt: new Date(),
+    //     },
+    //     {
+    //         id: 3,
+    //         title: 'walk the dog',
+    //         completed: false,
+    //         createdAt: new Date(),
+    //     },
+    //     {
+    //         id: 4,
+    //         title: 'go to the gym',
+    //         completed: false,
+    //         createdAt: new Date(),
+    //     },
+    //     {
+    //         id: 5,
+    //         title: 'read a book',
+    //         completed: false,
+    //         createdAt: new Date(),
+    //     },
+    //     {
+    //         id: 6,
+    //         title: 'write some code',
+    //         completed: false,
+    //         createdAt: new Date(),
+    //     },
+    //
+    // ];
 
-    ];
-    const [todoList, setTodoList] = useState<TodoType[]>(todosMock);
+    const [todoList, setTodoList] = useLocalStorage<TodoType[]>('todos', []);
+
+    //todo: add button to quickly add mock data
 
     const handleAddTodoItem = (newTodo: string) => {
         const newTodoItem: TodoType = {
