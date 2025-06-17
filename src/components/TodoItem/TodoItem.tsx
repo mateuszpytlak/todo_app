@@ -55,12 +55,15 @@ export const TodoItem = ({listItem, deleteItem, toggleTodo}: Props) => {
     }
 
     return (
-        <li className="flex items-center justify-between py-3 px-4 border-b last:border-0 group hover:bg-gray-50 transition-colors">
-            <div className="flex items-center">
+        <li className={`
+            flex items-center justify-between p-4 hover:bg-gray-50 transition-colors
+            ${listItem.completed ? 'opacity-60 text-gray-500' : ''}
+        `}>
+            <div className="flex items-center gap-x-3">
                 <input
                     type="checkbox"
                     checked={listItem.completed}
-                    className="w-5 h-5 mr-3 rounded border-gray-300 text-blue-600 focus:ring-blue-500 cursor-pointer"
+                    className="h-4 w-4 text-blue-600 rounded border-gray-300 focus:ring-blue-500 cursor-pointer"
                     onChange={handleChange}
                 />
                 <div>

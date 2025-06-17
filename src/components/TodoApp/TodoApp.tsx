@@ -5,49 +5,50 @@ import {useLocalStorage} from "../../hooks/useLocalStorage.ts";
 import { v4 as uuidv4 } from 'uuid';
 
 export const TodoApp = () => {
-    // const todosMock = [
-    //     {
-    //         id: 1,
-    //         title: 'clean the house',
-    //         completed: false,
-    //         createdAt: new Date(),
-    //     },
-    //     {
-    //         id: 2,
-    //         title: 'got to the store',
-    //         completed: false,
-    //         createdAt: new Date(),
-    //     },
-    //     {
-    //         id: 3,
-    //         title: 'walk the dog',
-    //         completed: false,
-    //         createdAt: new Date(),
-    //     },
-    //     {
-    //         id: 4,
-    //         title: 'go to the gym',
-    //         completed: false,
-    //         createdAt: new Date(),
-    //     },
-    //     {
-    //         id: 5,
-    //         title: 'read a book',
-    //         completed: false,
-    //         createdAt: new Date(),
-    //     },
-    //     {
-    //         id: 6,
-    //         title: 'write some code',
-    //         completed: false,
-    //         createdAt: new Date(),
-    //     },
-    //
-    // ];
-
     const [todoList, setTodoList] = useLocalStorage<TodoType[]>('todos', []);
+    const handleAddMockData = () => {
+        const mockData: TodoType[] = [
+            {
+                id: uuidv4(),
+                title: 'clean the house',
+                completed: false,
+                createdAt: new Date(),
+            },
+            {
+                id: uuidv4(),
+                title: 'got to the store',
+                completed: false,
+                createdAt: new Date(),
+            },
+            {
+                id: uuidv4(),
+                title: 'walk the dog',
+                completed: false,
+                createdAt: new Date(),
+            },
+            {
+                id: uuidv4(),
+                title: 'go to the gym',
+                completed: false,
+                createdAt: new Date(),
+            },
+            {
+                id: uuidv4(),
+                title: 'read a book',
+                completed: false,
+                createdAt: new Date(),
+            },
+            {
+                id: uuidv4(),
+                title: 'write some code',
+                completed: false,
+                createdAt: new Date(),
+            },
+        ];
 
-    //todo: add button to quickly add mock data
+        setTodoList((prevTodos) => [...prevTodos, ...mockData]);
+    };
+
 
     const handleAddTodoItem = (newTodo: string) => {
         const newTodoItem: TodoType = {
@@ -96,6 +97,7 @@ export const TodoApp = () => {
                 handleToggleTodo={handleToggleTodo}
                 handleSelectAll={handleToggleAllTodos}
                 clearCompletedTodos={handleClearCompletedTodos}
+                addMockData={handleAddMockData}
             />
         </>
     )

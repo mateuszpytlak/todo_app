@@ -4,6 +4,7 @@ import type {TodoType} from "../../types/TodoType.ts";
 import {useState, useEffect} from "react";
 import {FilterStatus} from "../../types/FilterStatusEnum.ts";
 import {Popup} from "../../ui/Popup";
+import {TooltipIcon} from "../../ui/TooltipIcon";
 
 type Props = {
     todoList: TodoType[];
@@ -11,8 +12,16 @@ type Props = {
     handleToggleTodo: (id: string) => void;
     handleSelectAll: () => void;
     clearCompletedTodos: () => void;
+    addMockData: () => void;
 }
-export const TodoList = ({todoList, removeItem, handleToggleTodo, handleSelectAll, clearCompletedTodos}: Props) => {
+export const TodoList = ({
+                             todoList,
+                             removeItem,
+                             handleToggleTodo,
+                             handleSelectAll,
+                             clearCompletedTodos,
+                             addMockData
+                         }: Props) => {
     const areAllCompleted = todoList.every((todo) => todo.completed);
     const sortedTodos = [...todoList].sort((a, b) => {
         return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
@@ -45,6 +54,10 @@ export const TodoList = ({todoList, removeItem, handleToggleTodo, handleSelectAl
         }
     };
 
+    const handleMockData = () => {
+        addMockData();
+    };
+
     useEffect(() => {
         setFilteredTodos(filterMap[currentFilter](todoList));
     }, [todoList, currentFilter]);
@@ -53,12 +66,25 @@ export const TodoList = ({todoList, removeItem, handleToggleTodo, handleSelectAl
         <div className="bg-white rounded-lg shadow-lg overflow-hidden">
             {todoList.length > 0 ? (
                     <>
-                        <div className="px-4 py-2 bg-gray-50 border-b border-gray-200">
+                        <div className="px-4 py-2 bg-gray-50 border-b border-gray-200 flex justify-between">
                             <Button
                                 onClick={handleSelectAll}
                                 className="text-sm text-gray-600 hover:text-gray-900"
                                 label={areAllCompleted ? 'Unselect All' : 'Select All'}
                             />
+
+                            <div className="relative">
+                                <Button
+                                    onClick={handleMockData}
+                                    className="flex items-center gap-2 px-4 py-2 bg-blue-100 text-blue-700 rounded-md hover:bg-blue-200 transition-colors"
+                                    label={
+                                        <>
+                                            Load Mock Data
+                                            <TooltipIcon className="w-4 h-4"/>
+                                        </>
+                                    }
+                                />
+                            </div>
                         </div>
                         <ul className="divide-y divide-gray-200">
                             {(currentFilter === FilterStatus.ALL ? sortedTodos : filteredTodos).map((element: TodoType) => {
