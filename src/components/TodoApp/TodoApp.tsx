@@ -2,6 +2,7 @@ import {TodoForm} from "../TodoForm/TodoForm.tsx";
 import {TodoList} from "../TodoList/TodoList.tsx";
 import type {TodoType} from "../../types/TodoType.ts";
 import {useLocalStorage} from "../../hooks/useLocalStorage.ts";
+import { v4 as uuidv4 } from 'uuid';
 
 export const TodoApp = () => {
     // const todosMock = [
@@ -50,7 +51,7 @@ export const TodoApp = () => {
 
     const handleAddTodoItem = (newTodo: string) => {
         const newTodoItem: TodoType = {
-            id: todoList.length + 1,
+            id: uuidv4(),
             title: newTodo,
             completed: false,
             createdAt: new Date(),
@@ -58,11 +59,11 @@ export const TodoApp = () => {
         setTodoList((prevTodos) => [...prevTodos, newTodoItem]);
     }
 
-    const handleDeleteTodo = (index: number) => {
+    const handleDeleteTodo = (index: string) => {
         setTodoList(prevTodos => prevTodos.filter(todo => todo.id !== index));
     }
 
-    const handleToggleTodo = (id: number) => {
+    const handleToggleTodo = (id: string) => {
         setTodoList(prev =>
             prev.map(todo =>
                 todo.id === id

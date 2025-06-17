@@ -7,8 +7,8 @@ import {Popup} from "../../ui/Popup";
 
 type Props = {
     todoList: TodoType[];
-    removeItem: (id: number) => void;
-    handleToggleTodo: (id: number) => void;
+    removeItem: (id: string) => void;
+    handleToggleTodo: (id: string) => void;
     handleSelectAll: () => void;
     clearCompletedTodos: () => void;
 }

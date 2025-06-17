@@ -5,8 +5,8 @@ import {Popup} from "../../ui/Popup";
 
 type Props = {
     listItem: TodoType;
-    deleteItem: (id: number) => void;
-    toggleTodo: (id: number) => void;
+    deleteItem: (id: string) => void;
+    toggleTodo: (id: string) => void;
 } & HTMLProps<HTMLLIElement>;
 
 export const TodoItem = ({listItem, deleteItem, toggleTodo}: Props) => {
