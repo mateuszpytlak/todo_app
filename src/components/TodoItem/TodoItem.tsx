@@ -1,19 +1,16 @@
-import {type ChangeEventHandler, type HTMLProps, useState, type MouseEvent} from "react";
+import { type HTMLProps, useState, type MouseEvent} from "react";
 import {Button} from "../../ui";
 import type {TodoType} from "../../types/TodoType.ts";
 import {Popup} from "../../ui/Popup";
 
 type Props = {
     listItem: TodoType;
-    deleteItem: (id: string) => void;
+    removeTodo: (id: string) => void;
     toggleTodo: (id: string) => void;
 } & HTMLProps<HTMLLIElement>;
 
-export const TodoItem = ({listItem, deleteItem, toggleTodo}: Props) => {
+export const TodoItem = ({listItem, removeTodo, toggleTodo}: Props) => {
     const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
-    const handleChange: ChangeEventHandler<HTMLInputElement> = () => {
-        toggleTodo(listItem.id);
-    };
 
     const handleDeleteTodo = (e: MouseEvent) => {
         e.stopPropagation();
@@ -21,7 +18,7 @@ export const TodoItem = ({listItem, deleteItem, toggleTodo}: Props) => {
     }
 
     const confirmDelete = () => {
-        deleteItem(listItem.id);
+        removeTodo(listItem.id);
         setShowDeleteConfirm(false);
     }
 
@@ -64,7 +61,7 @@ export const TodoItem = ({listItem, deleteItem, toggleTodo}: Props) => {
                     type="checkbox"
                     checked={listItem.completed}
                     className="h-4 w-4 text-blue-600 rounded border-gray-300 focus:ring-blue-500 cursor-pointer"
-                    onChange={handleChange}
+                    onChange={() => toggleTodo(listItem.id)}
                 />
                 <div>
                     <p>
@@ -75,13 +72,11 @@ export const TodoItem = ({listItem, deleteItem, toggleTodo}: Props) => {
                     </span>
                 </div>
             </div>
-            <div>
-                <Button
-                    label={deleteIconSvg}
-                    className="text-gray-400 hover:text-red-500 opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer"
-                    onClick={handleDeleteTodo}
-                />
-            </div>
+            <Button
+                label={deleteIconSvg}
+                className="text-gray-400 hover:text-red-500 opacity-30 hover:opacity-100 transition-opacity cursor-pointer"
+                onClick={handleDeleteTodo}
+            />
             <Popup
                 title="Are you sure you want to delete this todo?"
                 onClose={cancelDelete}
