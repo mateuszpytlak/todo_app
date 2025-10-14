@@ -2,14 +2,15 @@ import {type ChangeEventHandler, type HTMLProps, useState, type MouseEvent} from
 import {Button} from "../../ui";
 import type {TodoType} from "../../types/TodoType.ts";
 import {Popup} from "../../ui/Popup";
+import {useTodosContext} from "../TodosContext/TodosContext.tsx";
 
 type Props = {
     listItem: TodoType;
-    deleteItem: (id: string) => void;
-    toggleTodo: (id: string) => void;
 } & HTMLProps<HTMLLIElement>;
 
-export const TodoItem = ({listItem, deleteItem, toggleTodo}: Props) => {
+export const TodoItem = ({listItem}: Props) => {
+    const { removeTodo, toggleTodo } = useTodosContext();
+
     const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
     const handleChange: ChangeEventHandler<HTMLInputElement> = () => {
         toggleTodo(listItem.id);
@@ -21,7 +22,7 @@ export const TodoItem = ({listItem, deleteItem, toggleTodo}: Props) => {
     }
 
     const confirmDelete = () => {
-        deleteItem(listItem.id);
+        removeTodo(listItem.id);
         setShowDeleteConfirm(false);
     }
 

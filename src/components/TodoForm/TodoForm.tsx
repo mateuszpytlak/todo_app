@@ -1,17 +1,17 @@
 import {type FormEventHandler, useState} from "react";
 import * as React from "react";
 import {Button} from "../../ui";
+import {useTodosContext} from "../TodosContext/TodosContext.tsx";
 
-type Props = {
-    setTodos: (newTodo: string) => void;
-}
-export const TodoForm = ( { setTodos }: Props ) => {
+export const TodoForm = () => {
+    const { addTodo } = useTodosContext();
+
     const [title, setTitle] = useState<string>('');
 
     const handleAddTodo: FormEventHandler = ( event: React.FormEvent ) => {
         event.preventDefault();
         if (title.trim()) {
-            setTodos(title);
+            addTodo(title);
             setTitle('');
         }
     }
