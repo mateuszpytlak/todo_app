@@ -75,13 +75,11 @@ export const TodoItem = ({listItem, deleteItem, toggleTodo}: Props) => {
                     </span>
                 </div>
             </div>
-            <div>
-                <Button
-                    label={deleteIconSvg}
-                    className="text-gray-400 hover:text-red-500 opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer"
-                    onClick={handleDeleteTodo}
-                />
-            </div>
+            <Button
+                label={deleteIconSvg}
+                className="text-gray-400 hover:text-red-500 opacity-30 hover:opacity-100 transition-opacity cursor-pointer"
+                onClick={handleDeleteTodo}
+            />
             <Popup
                 title="Are you sure you want to delete this todo?"
                 onClose={cancelDelete}
